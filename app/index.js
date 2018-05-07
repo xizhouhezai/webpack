@@ -1,3 +1,10 @@
+import dep from './dep'
+import e from './eventbus'
+
+dep()
+
+e()
+
 function cb (val) {
   console.log("视图更新了")
 }
@@ -50,11 +57,9 @@ let o = new Vue({
   }
 })
 
-console.log(o._data.test)
-console.log('-----------------------')
+
 o._data.test = 'hello world'
 
-console.log(o._data.test)
 
 class Obj {
   constructor(options) {
@@ -76,6 +81,5 @@ let p = new Obj({
 p.say()
 
 p.name.person1 = 'lisi'
-console.log(p.name.person1)
+
 p.say()
-console.log(p.name.person1)
