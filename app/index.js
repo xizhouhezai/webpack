@@ -7,6 +7,10 @@ e()
 
 function cb (val) {
   console.log("视图更新了")
+  var body = document.body
+  var h = document.createElement('h2')
+  h.innerHTML = val
+  body.append(h)
 }
 
 /**
@@ -51,14 +55,18 @@ class Vue {
   }
 }
 
+let m = document.getElementById('model')
+
 let o = new Vue({
   data: {
-    test: 'ceshi'
+    test: m.value
   }
 })
 
-
-o._data.test = 'hello world'
+m.oninput = function (e) {
+  console.log(e.target.value)
+  o._data.test = e.target.value
+}
 
 
 class Obj {
@@ -78,8 +86,16 @@ let p = new Obj({
   }
 })
 
-p.say()
 
-p.name.person1 = 'lisi'
+let t = document.getElementById('test')
 
-p.say()
+let btn = document.getElementById('btn')
+
+btn.onclick = function() {
+  console.log(t.value.toString())
+  if (t.value.indexOf("\\r") >= 0) {
+    console.log("中有\n");
+  }
+  let tmp = t.value.split(/[\r\n]/)
+  console.log(tmp)
+}
