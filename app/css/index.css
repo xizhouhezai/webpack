@@ -1,0 +1,28 @@
+.scale {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  margin: 50px auto;
+  border-radius: 50%;
+  background-color: #E74C3C;
+  -webkit-transform: rotate(0);
+  -webkit-transition: all ease-out .35s;
+}
+
+.scale span {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 30%;
+}
+.scale span:nth-child(1) {
+  top: 17.5px;
+  left: 6px;
+  width: 70%;
+  height: 3px;
+}
+.scale span:nth-child(2) {
+  top: 6px;
+  left: 17px;
+  width: 3px;
+  height: 70%;
+}

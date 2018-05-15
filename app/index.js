@@ -1,5 +1,6 @@
 import dep from './dep'
 import e from './eventbus'
+import  './css/index.css'
 
 dep()
 
@@ -99,3 +100,50 @@ btn.onclick = function() {
   let tmp = t.value.split(/[\r\n]/)
   console.log(tmp)
 }
+
+// Map数据结构实例
+
+  console.log('Map数据结构实例 ----------------------------------------------------')
+
+  let m1 = new Map()
+
+  let o1 = {
+    p: 'Hello World'
+  }
+
+  m1.set(o1, 'content')
+
+  console.log(m1.get(o1))
+
+  console.log(m1.has(o1))
+
+  m1.set({
+    d: '123'
+  }, '123')
+
+  console.log(m1.get({
+    d: '123'
+  }))
+
+  let map = new Map()
+  map.set(['a'], 5555)
+  console.log(map.get(['a']))
+
+  // Map实例的属性如果为引用类型数据，说明该属性只是引用了改内存地址值，非实际值，导致用get取值时
+  // 改属性为未定义，要格外注意
+  let map1 = new Map([
+    [
+      ['a'], 555
+    ]
+  ])
+  console.log(map1.get(['a']))
+
+  console.log('----------------------------------------------------')
+
+
+  var scale = document.getElementsByClassName('scale')[0]
+
+  scale.onclick = function(e) {
+    console.log(e.target.style.transform)
+    e.target.style.transform = 'rotate(225deg)'
+  }

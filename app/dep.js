@@ -1,22 +1,54 @@
-function obj() {
-  console.log('视图更新了!!!!!')
-}
+// function obj() {
+//   console.log('视图更新了!!!!!')
+// }
 
 class Dep {
-  
+  constructor() {
+    // subs用来管理观察者watcher
+    this.subs = []
+  }
+  addSub(watcher) {
+    this.subs.push(watcher)
+  }
+
+  // 通知所有watcher更新视图
+  notify() {
+    console.log(this.subs)
+    this.subs.forEach(watcher => {
+      watcher.update()
+    })
+  }
 }
 
+
+
+class Watcher {
+  constructor() {
+    Dep.target = this
+  }
+  update() {
+    console.log("视图更新啦～");
+  }
+}
+
+Dep.target = null
+
 function defineReactive(obj, key, val) {
-  object.definePropertory(obj, key, {
+  const dep = new Dep()
+  
+  Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,
-    get: function getter() {
-      return val
-    },
-    set: function setter(newVal) {
+    set: function reactiveSetter(newVal) {
+      console.log("newVal: " + newVal)
       if (val === newVal) return
-      val = newVal
-      cb(newVal)
+      console.log(dep)
+      dep.notify()
+    },
+    get: function reactiveGetter() {
+      /* 将Dep.target（即当前的Watcher对象存入dep的subs中） */
+      dep.addSub(Dep.target);
+      return val;
     }
   })
 }
@@ -31,30 +63,23 @@ function observer(obj) {
 
 class Vue {
   constructor(options) {
-    this.data = options.data
-    observer(this.data)
+    this._data = options.data
+    
+    observer(this._data)
+    new Watcher()
+    console.log('render~', this._data.test)
   }
 }
 
 export default function dep() {
-  let m = new Map()
+  console.log('dep ----------------------------------------')
 
-  let o = {p: 'Hello World'}
+  let o = new Vue({
+    data: {
+      test: '123'
+    }
+  })
+  o._data.test = '456'
 
-  m.set(o, 'content')
-
-  console.log(m.get(o))
-
-  console.log(m.has(o))
-
-  m.set({d: '123'}, '123')
-
-  console.log(m.get({d: '123'}))
-
-  let map = new Map()
-  map.set(['a'], 5555)
-  console.log(map.get(['a']))
-
-  let map1 = new Map([[['a'],555]])
-  console.log(map1.get(['a']))
+  console.log('dep ----------------------------------------')
 }
